@@ -1,25 +1,29 @@
-import Month from '../Month'
-import MonthHeader from '../MonthHeader'
-import {useState} from 'react'
+import Month from './Month'
+import MonthHeader from './MonthHeader'
+import {createContext, useState} from 'react'
 
-const months = ["Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"];
+export const CalDateContext = createContext(new Date())
 
 const Calendar = () => {
-    const [month, setMonth] = useState(new Date().getMonth())
+    const [currDate, setCurrDate] = useState(new Date())
+    const [calDate, setCalDate] = useState(new Date())
 
     const monthChange = (s) => {
+        const date = new Date(calDate)
         if(s == "left"){
-            if(month != 0)
-                setMonth(--month);
+            date.setUTCMonth(date.getUTCMonth() - 1);
+            setCalDate(date);
         }else{
-            if(month != 11)
-                setMonth(++month);
+            date.setUTCMonth(date.getUTCMonth() + 1);
+            setCalDate(date);
         }
     }
 
     return <>
-        <MonthHeader month={months[month]} btnMonthChange={monthChange}/>
-        <Month month={month}/>
+        <CalDateContext.Provider value = {calDate}>
+            <MonthHeader btnMonthChange={monthChange}/>
+            <Month/>
+        </CalDateContext.Provider>
     </>
 }
 

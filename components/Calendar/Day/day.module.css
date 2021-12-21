@@ -1,0 +1,10 @@
+.day {
+    border: 2px solid black;
+    height: 80px;
+}
+
+.today {
+    border: 2px solid black;
+    height: 80px;
+    background-color: rgb(150, 182, 252);
+}

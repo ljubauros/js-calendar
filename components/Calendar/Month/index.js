@@ -1,13 +1,16 @@
 import styles from "./month.module.css";
 import Week from "../Week";
+import { CalDateContext } from "../../Calendar"
+import { useContext } from "react";
 
 const weekdays = ["Pon", "Uto", "Sre", "Cet", "Pet", "Sub", "Ned"];
 
-const Month = (props) => {
-    let numOfDays = new Date(2022, props.month + 1, 0).getDate();
+const Month = () => {
+	const date = useContext(CalDateContext);
+    let numOfDays = new Date(date.getUTCFullYear(), date.getUTCMonth() + 1, 0).getUTCDate();
 	
     //0 - pon, 6 - ned
-	let fstDay = new Date(2022, props.month, 1).getDay() - 1;
+	let fstDay = new Date(date.getUTCFullYear(), date.getUTCMonth(), 1).getUTCDay();
 	if (fstDay == -1) fstDay = 6;
 
 	const days = [];
@@ -17,7 +20,7 @@ const Month = (props) => {
 			fstDay--;
 		}
 		days.push(`${i + 1}`);
-		if (i == numOfDays - 1) {
+		if (i == numOfDays) {
 			while (i < 42) {
 				days.push('\u00A0');
 				i++;
