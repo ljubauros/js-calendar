@@ -10,9 +10,9 @@ const MonthHeader =  ({btnMonthChange}) => {
     const date = useContext(CalDateContext);
 
     return <div>
-            <button onClick={() => btnMonthChange("left")}>{"<<<"}</button>
-            <h1 className={styles.inline}>{months[date.getUTCMonth()]} {date.getUTCFullYear()}</h1>
-            <button onClick={() => btnMonthChange("right")}>{">>>"}</button>
+            <button className="button" onClick={() => btnMonthChange("left")}>{"<<<"}</button>
+            <button className="button" onClick={() => btnMonthChange("right")}>{">>>"}</button>
+            <h1 className={styles["month-name"]}>{months[date.getUTCMonth()]} {date.getUTCFullYear()}</h1>
         </div>
 }
 

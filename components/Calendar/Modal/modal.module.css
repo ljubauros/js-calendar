@@ -1,0 +1,22 @@
+.overlay{
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.modal{
+    width: 500px;
+    padding: 50px;
+    background-color: white;
+    vertical-align: top;
+}
+
+.title{
+    font-size: 30px;
+}

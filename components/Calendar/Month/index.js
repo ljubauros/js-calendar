@@ -40,7 +40,7 @@ const Month = () => {
 	return (
 		<div>
 			<table className={styles.table}>
-				<thead>
+				<thead className={styles.thead}>
 					<tr>
 						{weekdays.map((day, i) => (
 							<th key={i}>{day}</th>

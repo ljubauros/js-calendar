@@ -1,7 +1,7 @@
-.inline {
+.month-name {
     display: inline-block;
     height: 100%;
-    width: 260px;
     text-align: center;
     vertical-align: middle;
+    padding-top: 0px;
 }

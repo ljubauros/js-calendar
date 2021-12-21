@@ -2,4 +2,9 @@
     width: 100%;
     border: 2px solid black;
     table-layout: fixed;
+    background-color: rgba(171, 194, 226, 0.644);
+}
+
+.thead {
+    background-color: rgba(124, 142, 167, 0.644);
 }
