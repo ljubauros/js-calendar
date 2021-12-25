@@ -1,4 +1,4 @@
-.overlay{
+.overlay {
     position: fixed;
     top: 0px;
     bottom: 0px;
@@ -10,13 +10,13 @@
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.modal{
+.modal {
     width: 500px;
     padding: 50px;
     background-color: white;
     vertical-align: top;
 }
 
-.title{
+.title {
     font-size: 30px;
 }
