@@ -1,12 +1,21 @@
 import styles from './month.module.css';
 import Week from '../Week';
 import { CalDateContext } from '../../Calendar';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 const weekdays = ['Pon', 'Uto', 'Sre', 'Cet', 'Pet', 'Sub', 'Ned'];
 
 const Month = () => {
+    const [events, setEvents] = useState([]);
     const date = useContext(CalDateContext);
+
+    useEffect(() => {
+        setEvents([]);
+        fetch(`http://localhost:3000/events?month=${date.getUTCMonth()}&year=${date.getUTCFullYear()}`)
+            .then((res) => res.json())
+            .then((json) => setEvents([...json]));
+    }, [date]);
+
     let numOfDays = new Date(date.getUTCFullYear(), date.getUTCMonth() + 1, 0).getUTCDate();
 
     //0 - pon, 6 - ned
@@ -49,7 +58,13 @@ const Month = () => {
                 </thead>
                 <tbody>
                     {weeks.map((week, i) => {
-                        return <Week week={week} key={i} />;
+                        return (
+                            <Week
+                                week={week}
+                                events={events.filter((event) => event.day >= week[0] && event.day <= week[6])}
+                                key={i}
+                            />
+                        );
                     })}
                 </tbody>
             </table>

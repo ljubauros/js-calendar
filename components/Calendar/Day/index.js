@@ -4,49 +4,10 @@ import { useContext, useState, useEffect } from 'react';
 import Modal from '../Modal';
 import Event from './Event';
 
-const dbEvents = [
-    {
-        id: 1,
-        naslov: 'e1',
-        opis: 'prvi dogadjaj',
-        day: 2,
-        month: 11,
-        year: 2021,
-    },
-    {
-        id: 2,
-        naslov: 'e2',
-        opis: 'drugi dogadjaj',
-        day: 5,
-        month: 11,
-        year: 2021,
-    },
-    {
-        id: 3,
-        naslov: 'e3',
-        opis: 'treci dogadjaj',
-        day: 2,
-        month: 11,
-        year: 2021,
-    },
-    {
-        id: 4,
-        naslov: 'e4',
-        opis: 'cetvrti dogadjaj',
-        day: 21,
-        month: 11,
-        year: 2021,
-    },
-];
-
-const Day = ({ day }) => {
+const Day = ({ day, events }) => {
     const [openModal, setOpenModal] = useState(false);
     const calDate = useContext(CalDateContext);
     const currDate = new Date();
-
-    const getEvents = (day, month, year) => {
-        return dbEvents.filter((event) => event.day == day && event.month == month && event.year == year);
-    };
 
     const handleDoubleClick = () => {
         setOpenModal(true);
@@ -65,8 +26,6 @@ const Day = ({ day }) => {
             return true;
         return false;
     };
-
-    const events = getEvents(day, calDate.getUTCMonth(), calDate.getUTCFullYear());
 
     return (
         <td className={isToday() ? styles.today : styles.day} onDoubleClick={handleDoubleClick}>

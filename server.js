@@ -45,11 +45,7 @@ app.prepare().then(() => {
     const server = express();
 
     server.get('/events', (req, res) => {
-        res.send(
-            dbEvents.filter(
-                (event) => event.day == req.query.day && event.month == req.query.month && event.year == req.query.year,
-            ),
-        );
+        res.send(dbEvents.filter((event) => event.month == req.query.month && event.year == req.query.year));
     });
 
     server.all('*', (req, res) => {
