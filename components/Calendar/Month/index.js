@@ -8,12 +8,18 @@ const weekdays = ['Pon', 'Uto', 'Sre', 'Cet', 'Pet', 'Sub', 'Ned'];
 const Month = () => {
     const [events, setEvents] = useState([]);
     const date = useContext(CalDateContext);
-
+    const [loading, setLoading] = useState(false);
+    const addEvent = (event) => {
+        setEvents([...events, event]);
+    };
     useEffect(() => {
-        setEvents([]);
+        setLoading(true);
         fetch(`http://localhost:3000/events?month=${date.getUTCMonth()}&year=${date.getUTCFullYear()}`)
             .then((res) => res.json())
-            .then((json) => setEvents([...json]));
+            .then((json) => {
+                setEvents([...json]);
+                setLoading(false);
+            });
     }, [date]);
 
     let numOfDays = new Date(date.getUTCFullYear(), date.getUTCMonth() + 1, 0).getUTCDate();
@@ -45,7 +51,9 @@ const Month = () => {
         }
     }
     if (weeks[5][0] == '\u00A0') weeks.pop();
-
+    if (loading) {
+        return <div>Loading...</div>;
+    }
     return (
         <div>
             <table className={styles.table}>
@@ -62,6 +70,7 @@ const Month = () => {
                             <Week
                                 week={week}
                                 events={events.filter((event) => event.day >= week[0] && event.day <= week[6])}
+                                addEvent={addEvent}
                                 key={i}
                             />
                         );

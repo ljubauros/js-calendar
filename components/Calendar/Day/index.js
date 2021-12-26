@@ -4,7 +4,7 @@ import { useContext, useState, useEffect } from 'react';
 import Modal from '../Modal';
 import Event from './Event';
 
-const Day = ({ day, events }) => {
+const Day = ({ day, events, addEvent }) => {
     const [openModal, setOpenModal] = useState(false);
     const calDate = useContext(CalDateContext);
     const currDate = new Date();
@@ -35,7 +35,17 @@ const Day = ({ day, events }) => {
                     return <Event event={event} key={i} />;
                 })}
             </div>
-            {openModal && <Modal onClose={onModalClose} />}
+            <div>
+                {openModal && (
+                    <Modal
+                        day={parseInt(day)}
+                        month={calDate.getUTCMonth()}
+                        year={calDate.getUTCFullYear()}
+                        onClose={onModalClose}
+                        onSuccess={addEvent}
+                    />
+                )}
+            </div>
         </td>
     );
 };
