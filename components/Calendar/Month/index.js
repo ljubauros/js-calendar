@@ -12,14 +12,17 @@ const Month = () => {
     const addEvent = (event) => {
         setEvents([...events, event]);
     };
+
     useEffect(() => {
         setLoading(true);
+        setEvents([]);
         fetch(`http://localhost:3000/events?month=${date.getUTCMonth()}&year=${date.getUTCFullYear()}`)
             .then((res) => res.json())
             .then((json) => {
                 setEvents([...json]);
                 setLoading(false);
             });
+        console.log(events);
     }, [date]);
 
     let numOfDays = new Date(date.getUTCFullYear(), date.getUTCMonth() + 1, 0).getUTCDate();

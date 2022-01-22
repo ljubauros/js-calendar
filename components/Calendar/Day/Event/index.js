@@ -1,5 +1,13 @@
+import Link from 'next/link';
+
 const Event = ({ event }) => {
-    return <div className='event'>{event.opis}</div>;
+    return (
+        <Link href={`/sastanak/${event.id}`}>
+            <a>
+                <div className='event'>{event.opis}</div>
+            </a>
+        </Link>
+    );
 };
 
 export default Event;
