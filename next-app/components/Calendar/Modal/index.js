@@ -1,6 +1,7 @@
 import styles from './modal.module.css';
 import { MultiSelect } from 'react-multi-select-component';
 import { useEffect, useState } from 'react';
+const baseURL = 'http://localhost:3001';
 
 const Modal = ({ day, month, year, onClose, onSuccess }) => {
     const [ucesnici, setUcesnici] = useState([]);
@@ -8,9 +9,9 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
     const [selected, setSelected] = useState([]);
     useEffect(() => {
         async function getUcesnici() {
-            const res = await fetch('/ucesnici');
+            const res = await fetch(baseURL + '/participants');
             const data = await res.json();
-            setUcesnici(data.map((u) => ({ label: u.name, value: u.id })));
+            setUcesnici(data.map((u) => ({ label: u.ime, value: u._id })));
         }
         getUcesnici();
     }, []);
@@ -18,21 +19,21 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
     const addEvent = async (event) => {
         event.preventDefault();
 
-        const naslov = event.target.naslov.value;
+        const naziv = event.target.naziv.value;
         const opis = event.target.opis.value;
         const vreme = event.target.vreme.value;
         const ucesnici = selected.map((x) => x.value);
-        console.log(selected);
-        const res = await fetch('/event', {
-            body: JSON.stringify({
-                naslov,
-                opis,
-                vreme,
-                ucesnici,
-                day,
-                month,
-                year,
-            }),
+        const newEvent = {
+            naziv,
+            opis,
+            vreme,
+            ucesnici,
+            day,
+            month,
+            year,
+        };
+        const res = await fetch(baseURL + '/events', {
+            body: JSON.stringify(newEvent),
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -40,8 +41,8 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
         });
 
         const result = await res.json();
-        console.log(result);
         onSuccess(result);
+        onClose();
     };
 
     return (
@@ -57,7 +58,7 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
                     <br />
                     <div>
                         <label>Naslov: </label>
-                        <input type='text' placeholder='Unesite naslov' name='naslov' id='naslov' />
+                        <input type='text' placeholder='Unesite naslov' name='naziv' id='naziv' />
                     </div>
                     <br />
                     <div>
