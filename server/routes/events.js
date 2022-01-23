@@ -15,6 +15,37 @@ router.get('/', async (req, res) => {
 	}
 });
 
+router.get('/findById', async (req, res) => {
+	try {
+		console.log(req.query + 'aaa');
+		const event = await Event.findById(req.query.id);
+		res.json(event);
+	} catch (err) {
+		res.status(400).json({ message: err });
+		console.log(err);
+	}
+});
+
+// router.delete('/', async (req, res) => {
+// 	try {
+// 		await Event.deleteMany({});
+// 		res.status(200).send('deleted all');
+// 	} catch (err) {
+// 		res.status(400).json({ message: err });
+// 		console.log(err);
+// 	}
+// });
+
+router.delete('/', async (req, res) => {
+	try {
+		await Event.deleteOne({ _id: req.query.id });
+		res.status(200).send('deleted all');
+	} catch (err) {
+		res.status(400).json({ message: err });
+		console.log(err);
+	}
+});
+
 router.post('/', async (req, res) => {
 	try {
 		let event = req.body;

@@ -54,6 +54,7 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
                 }}
             >
                 <div className={styles.title}>Novi dogadjaj</div>
+                <br />
                 <form onSubmit={addEvent}>
                     <br />
                     <div>
@@ -72,7 +73,9 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
                     </div>
                     <br />
                     <div>
-                        <label>Izaberite ucesnike: </label>
+                        <label>Izaberite ucesnike:z</label>
+                        <br />
+                        <br />
                         <MultiSelect options={ucesnici} value={selected} onChange={setSelected} labelledBy='Select' />
                     </div>
                     <br />

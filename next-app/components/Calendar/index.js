@@ -5,7 +5,7 @@ import { createContext, useState } from 'react';
 export const CalDateContext = createContext(new Date());
 
 const Calendar = () => {
-    const [currDate, setCurrDate] = useState(new Date());
+    // const [currDate, setCurrDate] = useState(new Date());
     const [calDate, setCalDate] = useState(new Date());
 
     const monthChange = (s) => {
