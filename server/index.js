@@ -26,7 +26,12 @@ const options = {
 	// keepAlive: true,
 };
 
-mongoose.connect(process.env.DB_CONNECTION, options, () =>
-	console.log('Connected to db...')
-);
+mongoose.connect(process.env.MONGO_URI, options, (error) => {
+	if (error) {
+		console.log('Failed to connect to db.');
+	} else {
+		console.log('Connected to db...');
+	}
+});
+
 app.listen(3001, () => console.log('Server is Up and running...'));

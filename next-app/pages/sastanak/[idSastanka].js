@@ -65,7 +65,7 @@ const Details = () => {
                 <br />
                 <div>
                     <label style={{ fontWeight: 'bold' }}>Ucesnici: </label>
-                    {participants ? (
+                    {participants && participants.length ? (
                         participants
                             .map((p) => (
                                 <span key={p._id}>

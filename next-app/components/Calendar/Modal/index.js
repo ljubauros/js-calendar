@@ -32,7 +32,7 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
             month,
             year,
         };
-        const res = await fetch(baseURL + '/events', {
+        const res = await fetch(`${baseURL}/events`, {
             body: JSON.stringify(newEvent),
             headers: {
                 'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
                     </div>
                     <br />
                     <div>
-                        <label>Izaberite ucesnike:z</label>
+                        <label>Izaberite ucesnike:</label>
                         <br />
                         <br />
                         <MultiSelect options={ucesnici} value={selected} onChange={setSelected} labelledBy='Select' />
