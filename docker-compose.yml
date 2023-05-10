@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+    frontend:
+        build: ./next-app
+        ports:
+            - '3000:3000'
+    backend:
+        build: ./server
+        ports:
+            - '3001:3001'
+        environment:
+            - MONGO_URI=mongodb://mongo:27017
+
+    mongo:
+        image: mongo
+        volumes:
+            - mongo_data:/data/db
+
+volumes:
+    mongo_data:
