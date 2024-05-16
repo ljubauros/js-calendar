@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-const baseURL = 'http://localhost:3001';
+import { getParticipant, getEvent, deleteEvent } from '../../api/apiService';
 
 const Details = () => {
     const router = useRouter();
@@ -9,31 +9,25 @@ const Details = () => {
     const [participants, setParticipants] = useState();
 
     async function fetchParticipants(participantsIds) {
-        const participants = await Promise.all(
-            participantsIds.map(async (id) => {
-                const res = await fetch(baseURL + `/participants/findById?id=${id}`);
-                return await res.json();
-            }),
-        );
+        const participants = await Promise.all(participantsIds.map((id) => getParticipant(id)));
         setParticipants([...participants]);
     }
-    async function getEvent() {
-        const res = await fetch(baseURL + `/events/findById?id=${idSastanka}`);
-        const data = await res.json();
+    async function fetchEvent() {
+        const data = await getEvent(idSastanka);
         setEvent(data);
         return data;
     }
 
     useEffect(() => {
         if (!idSastanka) return;
-        getEvent().then((data) => {
+        fetchEvent().then((data) => {
             fetchParticipants(data.ucesnici);
         });
     }, [idSastanka]);
 
     const onDelete = async () => {
-        const res = await fetch(baseURL + `/events?id=${idSastanka}`, { method: 'DELETE' });
-        if (res.status == 200) router.back();
+        const res = await deleteEvent(idSastanka);
+        if (res == true) router.back();
     };
 
     return (

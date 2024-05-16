@@ -2,6 +2,7 @@ import styles from './month.module.css';
 import Week from '../Week';
 import { CalDateContext } from '../../Calendar';
 import { useContext, useEffect, useState } from 'react';
+import { getEvents } from '../../../api/apiService';
 
 const weekdays = ['Pon', 'Uto', 'Sre', 'Cet', 'Pet', 'Sub', 'Ned'];
 
@@ -16,12 +17,10 @@ const Month = () => {
     useEffect(() => {
         setLoading(true);
         setEvents([]);
-        fetch(`http://localhost:3001/events?month=${date.getUTCMonth()}&year=${date.getUTCFullYear()}`)
-            .then((res) => res.json())
-            .then((json) => {
-                setEvents([...json]);
-                setLoading(false);
-            });
+        getEvents(date.getUTCMonth(), date.getUTCFullYear()).then((res) => {
+            setEvents([...res]);
+            setLoading(false);
+        });
     }, [date]);
 
     let numOfDays = new Date(date.getUTCFullYear(), date.getUTCMonth() + 1, 0).getUTCDate();

@@ -28,7 +28,10 @@ const Day = ({ day, events, addEvent }) => {
     };
 
     return (
-        <td className={isToday() ? styles.today : styles.day} onDoubleClick={handleDoubleClick}>
+        <td
+            className={isToday() ? styles.today : styles.day}
+            onDoubleClick={Number.isInteger(Number.parseInt(day)) ? handleDoubleClick : undefined}
+        >
             {day}
             <div>
                 {events?.map((event, i) => {

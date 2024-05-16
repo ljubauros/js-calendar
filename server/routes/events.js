@@ -17,7 +17,6 @@ router.get('/', async (req, res) => {
 
 router.get('/findById', async (req, res) => {
 	try {
-		console.log(req.query + 'aaa');
 		const event = await Event.findById(req.query.id);
 		res.json(event);
 	} catch (err) {

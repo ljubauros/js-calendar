@@ -1,7 +1,7 @@
 import styles from './modal.module.css';
 import { MultiSelect } from 'react-multi-select-component';
 import { useEffect, useState } from 'react';
-const baseURL = 'http://localhost:3001';
+import { getParticipants, postEvent } from '../../../api/apiService';
 
 const Modal = ({ day, month, year, onClose, onSuccess }) => {
     const [ucesnici, setUcesnici] = useState([]);
@@ -9,8 +9,7 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
     const [selected, setSelected] = useState([]);
     useEffect(() => {
         async function getUcesnici() {
-            const res = await fetch(baseURL + '/participants');
-            const data = await res.json();
+            const data = await getParticipants();
             setUcesnici(data.map((u) => ({ label: u.ime, value: u._id })));
         }
         getUcesnici();
@@ -32,16 +31,8 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
             month,
             year,
         };
-        const res = await fetch(`${baseURL}/events`, {
-            body: JSON.stringify(newEvent),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        });
-
-        const result = await res.json();
-        onSuccess(result);
+        const res = await postEvent(newEvent);
+        onSuccess(res);
         onClose();
     };
 
