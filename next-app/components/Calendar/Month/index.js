@@ -16,7 +16,6 @@ const Month = () => {
 
     useEffect(() => {
         setLoading(true);
-        setEvents([]);
         getEvents(date.getUTCMonth(), date.getUTCFullYear()).then((res) => {
             setEvents([...res]);
             setLoading(false);
@@ -51,7 +50,9 @@ const Month = () => {
             weeks[i].push(days[i * 7 + j]);
         }
     }
-    if (weeks[5][0] == '\u00A0') weeks.pop();
+    if (weeks[weeks.length - 1][0] == '\u00A0') {
+        weeks.pop();
+    }
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -70,7 +71,7 @@ const Month = () => {
                         return (
                             <Week
                                 week={week}
-                                events={events.filter((event) => event.day >= week[0] && event.day <= week[6])}
+                                events={events.filter((event) => week.includes(String(event.day)))}
                                 addEvent={addEvent}
                                 key={i}
                             />
