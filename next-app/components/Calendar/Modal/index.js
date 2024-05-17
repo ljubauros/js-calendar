@@ -4,29 +4,29 @@ import { useEffect, useState } from 'react';
 import { getParticipants, postEvent } from '../../../api/apiService';
 
 const Modal = ({ day, month, year, onClose, onSuccess }) => {
-    const [ucesnici, setUcesnici] = useState([]);
+    const [participants, setParticipants] = useState([]);
 
     const [selected, setSelected] = useState([]);
     useEffect(() => {
-        async function getUcesnici() {
+        async function fetchParticipants() {
             const data = await getParticipants();
-            setUcesnici(data.map((u) => ({ label: u.ime, value: u._id })));
+            setParticipants(data.map((u) => ({ label: u.firstName, value: u._id })));
         }
-        getUcesnici();
+        fetchParticipants();
     }, []);
 
     const addEvent = async (event) => {
         event.preventDefault();
 
-        const naziv = event.target.naziv.value;
-        const opis = event.target.opis.value;
-        const vreme = event.target.vreme.value;
-        const ucesnici = selected.map((x) => x.value);
+        const title = event.target.title.value;
+        const description = event.target.description.value;
+        const time = event.target.time.value;
+        const participants = selected.map((x) => x.value);
         const newEvent = {
-            naziv,
-            opis,
-            vreme,
-            ucesnici,
+            title,
+            description,
+            time,
+            participants,
             day,
             month,
             year,
@@ -44,34 +44,44 @@ const Modal = ({ day, month, year, onClose, onSuccess }) => {
                     e.stopPropagation();
                 }}
             >
-                <div className={styles.title}>Novi dogadjaj</div>
+                <div className={styles.title}>New event</div>
                 <br />
                 <form onSubmit={addEvent}>
                     <br />
                     <div>
-                        <label>Naslov: </label>
-                        <input type='text' placeholder='Unesite naslov' name='naziv' id='naziv' />
+                        <label>Title: </label>
+                        <input type='text' placeholder='Enter title' name='title' id='title' />
                     </div>
                     <br />
                     <div>
-                        <label>Opis: </label>
-                        <textarea type='text' placeholder='Unesite opis' name='opis' id='opis'></textarea>
+                        <label>Description: </label>
+                        <textarea
+                            type='text'
+                            placeholder='Enter description'
+                            name='description'
+                            id='description'
+                        ></textarea>
                     </div>
                     <br />
                     <div>
-                        <label>Vreme: </label>
-                        <input type='text' placeholder='Unesite vreme' name='vreme' id='vreme' />
+                        <label>Time: </label>
+                        <input type='text' placeholder='Enter time' name='time' id='time' />
                     </div>
                     <br />
                     <div>
-                        <label>Izaberite ucesnike:</label>
+                        <label>Choose participants:</label>
                         <br />
                         <br />
-                        <MultiSelect options={ucesnici} value={selected} onChange={setSelected} labelledBy='Select' />
+                        <MultiSelect
+                            options={participants}
+                            value={selected}
+                            onChange={setSelected}
+                            labelledBy='Select'
+                        />
                     </div>
                     <br />
                     <button type='submit' className='button'>
-                        Dodaj
+                        Add
                     </button>
                 </form>
             </div>

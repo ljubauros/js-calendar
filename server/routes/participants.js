@@ -18,16 +18,6 @@ router.post('/', async (req, res) => {
 	}
 });
 
-router.delete('/', async (req, res) => {
-	try {
-		await Participant.deleteMany({});
-		res.status(200).send('deleted all');
-	} catch (err) {
-		res.status(400).json({ message: err });
-		console.log(err);
-	}
-});
-
 router.get('/', async (req, res) => {
 	try {
 		const participants = await Participant.find();

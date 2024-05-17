@@ -3,18 +3,18 @@ import styles from './monthheader.module.css';
 import { CalDateContext } from '../../Calendar';
 
 const months = [
-    'Januar',
-    'Februar',
-    'Mart',
+    'January',
+    'February',
+    'March',
     'April',
-    'Maj',
-    'Jun',
-    'Jul',
-    'Avgust',
-    'Septembar',
-    'Oktobar',
-    'Novembar',
-    'Decembar',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
 ];
 
 const MonthHeader = ({ btnMonthChange }) => {

@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 const Event = ({ event }) => {
     return (
-        <Link href={`/sastanak/${event._id}`}>
+        <Link href={`/event/${event._id}`}>
             <a>
-                <div className='event'>{event.naziv}</div>
+                <div className='event'>{event.title}</div>
             </a>
         </Link>
     );

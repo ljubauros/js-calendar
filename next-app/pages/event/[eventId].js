@@ -4,7 +4,7 @@ import { getParticipant, getEvent, deleteEvent } from '../../api/apiService';
 
 const Details = () => {
     const router = useRouter();
-    const { idSastanka } = router.query;
+    const { eventId } = router.query;
     const [event, setEvent] = useState();
     const [participants, setParticipants] = useState();
 
@@ -13,67 +13,67 @@ const Details = () => {
         setParticipants([...participants]);
     }
     async function fetchEvent() {
-        const data = await getEvent(idSastanka);
+        const data = await getEvent(eventId);
         setEvent(data);
         return data;
     }
 
     useEffect(() => {
-        if (!idSastanka) return;
+        if (!eventId) return;
         fetchEvent().then((data) => {
-            fetchParticipants(data.ucesnici);
+            fetchParticipants(data.participants);
         });
-    }, [idSastanka]);
+    }, [eventId]);
 
     const onDelete = async () => {
-        const res = await deleteEvent(idSastanka);
+        const res = await deleteEvent(eventId);
         if (res == true) router.back();
     };
 
     return (
         <>
-            <h1>Detalji dogadjaja</h1>
+            <h1>Event details</h1>
             <div>
                 <br />
                 <div>
-                    <label style={{ fontWeight: 'bold' }}>Naslov: </label>
-                    <label type='text' name='naziv' id='naziv'>
-                        {event ? event.naziv : null}
+                    <label style={{ fontWeight: 'bold' }}>Title: </label>
+                    <label type='text' name='title' id='title'>
+                        {event ? event.title : null}
                     </label>
                 </div>
                 <br />
                 <div>
-                    <label style={{ fontWeight: 'bold' }}>Opis: </label>
-                    <label type='text' name='opis' id='opis'>
-                        {event ? event.opis : null}
+                    <label style={{ fontWeight: 'bold' }}>Description: </label>
+                    <label type='text' name='description' id='description'>
+                        {event ? event.description : null}
                     </label>
                 </div>
                 <br />
                 <div>
-                    <label style={{ fontWeight: 'bold' }}>Vreme: </label>
-                    <label type='text' name='vreme' id='vreme'>
-                        {event ? event.vreme : null}, {event ? event.day : null}.{event ? event.month + 1 : null}.
+                    <label style={{ fontWeight: 'bold' }}>Time: </label>
+                    <label type='text' name='time' id='time'>
+                        {event ? event.time : null}, {event ? event.day : null}.{event ? event.month + 1 : null}.
                         {event ? event.year : null}.
                     </label>
                 </div>
                 <br />
                 <div>
-                    <label style={{ fontWeight: 'bold' }}>Ucesnici: </label>
+                    <label style={{ fontWeight: 'bold' }}>Participants: </label>
                     {participants && participants.length ? (
                         participants
                             .map((p) => (
                                 <span key={p._id}>
-                                    {p.ime} {p.prezime}
+                                    {p.firstName} {p.lastName}
                                 </span>
                             ))
                             .reduce((p, c) => [p, ', ', c])
                     ) : (
-                        <label>Nema ucesnika</label>
+                        <label>No participants</label>
                     )}
                 </div>
                 <br />
                 <button onClick={onDelete} className='button'>
-                    Obrisi
+                    Delete
                 </button>
             </div>
         </>

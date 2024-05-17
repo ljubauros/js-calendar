@@ -25,20 +25,10 @@ router.get('/findById', async (req, res) => {
 	}
 });
 
-// router.delete('/', async (req, res) => {
-// 	try {
-// 		await Event.deleteMany({});
-// 		res.status(200).send('deleted all');
-// 	} catch (err) {
-// 		res.status(400).json({ message: err });
-// 		console.log(err);
-// 	}
-// });
-
 router.delete('/', async (req, res) => {
 	try {
 		await Event.deleteOne({ _id: req.query.id });
-		res.status(200).send('deleted all');
+		res.status(200).send('Deleted event with id ', req.query.id);
 	} catch (err) {
 		res.status(400).json({ message: err });
 		console.log(err);
@@ -49,10 +39,10 @@ router.post('/', async (req, res) => {
 	try {
 		let event = req.body;
 		const newEvent = new Event({
-			naziv: event.naziv,
-			opis: event.opis,
-			vreme: event.vreme,
-			ucesnici: event.ucesnici,
+			title: event.title,
+			description: event.description,
+			time: event.time,
+			participants: event.participants,
 			day: event.day,
 			month: event.month,
 			year: event.year,

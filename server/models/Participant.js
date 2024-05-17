@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const ParticipantSchema = new mongoose.Schema({
-	ime: {
+	firstName: {
 		type: String,
 		required: true,
 	},
-	prezime: {
+	lastName: {
 		type: String,
 		required: true,
 	},

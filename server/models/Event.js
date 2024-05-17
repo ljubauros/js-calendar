@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
 
 const EventSchema = new mongoose.Schema({
-	naziv: {
+	title: {
 		type: String,
 		required: true,
 	},
-	opis: {
+	description: {
 		type: String,
 		required: false,
 	},
-	vreme: {
+	time: {
 		type: String,
 		required: true,
 	},
-	ucesnici: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Participant' }],
+	participants: [
+		{ type: mongoose.Schema.Types.ObjectId, ref: 'Participant' },
+	],
 	day: {
 		type: Number,
 		required: true,

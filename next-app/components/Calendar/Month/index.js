@@ -4,7 +4,7 @@ import { CalDateContext } from '../../Calendar';
 import { useContext, useEffect, useState } from 'react';
 import { getEvents } from '../../../api/apiService';
 
-const weekdays = ['Pon', 'Uto', 'Sre', 'Cet', 'Pet', 'Sub', 'Ned'];
+const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 const Month = () => {
     const [events, setEvents] = useState([]);
@@ -24,7 +24,7 @@ const Month = () => {
 
     let numOfDays = new Date(date.getUTCFullYear(), date.getUTCMonth() + 1, 0).getUTCDate();
 
-    //0 - pon, 6 - ned
+    //0 - Mon, 6 - Sun
     let fstDay = new Date(date.getUTCFullYear(), date.getUTCMonth(), 1).getUTCDay();
     if (fstDay == -1) fstDay = 6;
 
